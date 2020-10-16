@@ -26,8 +26,8 @@ class Conexiones
     {
         ip = IP;
         name = NAME;
-        conexionesEntrantes = CE;
-        conexicionesSalientes = CS;
+        conexionesEntrantes = CE;//append
+        conexicionesSalientes = CS; //push
     }
 };
 
