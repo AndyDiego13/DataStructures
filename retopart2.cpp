@@ -13,31 +13,26 @@ Fernando Santoyo
 
 using namespace std;
 
-class Record
+class Conexiones
 {
     public:
 
-    string fecha;
-    string hora;
-    string nombreFuente;
-    string nombreDestino;
+    string ip;
+    string name;
+    string conexionesEntrantes;
+    string conexicionesSalientes;
 
-    Record(string f, string h, string nF, string nD) //constructor 
+    Conexiones(string IP, string NAME, string CE, string CS) //constructor 
     {
-        fecha = f;
-        hora = h;
-        nombreFuente = nF;
-        nombreDestino = nD;
-    }
-
-    void imprimirDatos()
-    {
-        cout << fecha << endl;
+        ip = IP;
+        name = NAME;
+        conexionesEntrantes = CE;
+        conexicionesSalientes = CS;
     }
 };
 
 
-vector<Record>conexiones;
+vector<Conexiones>conexiones;
 
 void leerDatos(string path)//funcion aparte 
 {
@@ -65,8 +60,8 @@ void leerDatos(string path)//funcion aparte
 			valores[7] = valores[7].substr(0, valores[7].size()-1);
 		}
 
-        Record r(valores[0], valores[1], valores[4], valores[7]);
-        conexiones.push_back(r);
+        Conexiones c(valores[2], valores[3], valores[4], valores[5]);
+        conexiones.push_back(c);
         valores.clear();
     }
 }
@@ -280,14 +275,22 @@ class conexionesComputadora
 
     void print()
     {
-		Nodo<T> *r = root;
-		while(r!=NULL)
+		Nodo<T> *h = head;
+		while(h != NULL)
         {
-			std::cout << r -> getVal() << "," << std::endl;
-			r = r->getNext();
+			std::cout << h -> getVal() << "," << std::endl;
+			h = h->getNext();
 		}	
 		std::cout <<    << std::endl;
 	}
 
 };
+
+int main()
+{
+    conexionesComputadora<int> cc;
+    /* code */
+    return 0;
+}
+
 
