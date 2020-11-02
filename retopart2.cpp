@@ -10,31 +10,79 @@ Fernando Santoyo
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <list>
+#include <unordered_map>
 
 using namespace std;
 
-class Conexiones
+class Record
 {
     public:
 
-    string ip;
-    string name;
-    string conexionesEntrantes;
-    string conexicionesSalientes;
+    string fecha;
+    string hora;
+    string ipFuente;
+    int puertoFuente;
+    string nombreFuente;
+    string ipDestino;
+    int puertoDestino;
+    string nombreDestino;
 
-    Conexiones(string IP, string NAME, string CE, string CS) //constructor 
+    Record(string f, string h, string ipF, string pF, string nF, string ipD, string pD, string nD)
     {
-        ip = IP;
-        name = NAME;
-        conexionesEntrantes = CE;//append
-        conexicionesSalientes = CS; //push
+        fecha = f;
+        hora = h;
+        ipFuente = ipF;
+
+        if (pF == '-')
+        {
+            puertoFuente = 0;
+        }
+        else
+        {
+            try
+            {
+                puertoFuente = stoi(pF);
+            }
+            catch(const std::invalid_argument& ia)
+            {
+                puertoFuente = 0;
+                std::cout << "ERROR" << pD << std::endl;
+            } 
+        }
+
+        nombreFuente = nF;
+        ipDestino = ipD;
+
+        if (pD == '-')
+        {
+            puertoDestino = 0;
+        }
+        else
+        {
+            try
+            {
+                puertoDestino = stoi(pD);
+            }
+            catch(const std::invalid_argument& ia)
+            {
+                puertoDestino = 0;
+                std::cout << "ERROR" << pD << std::endl;
+            } 
+        }
+
+        nombreDestino = nD;  
+    }
+
+    void imprimirNombreFuente()
+    {
+        std::cout << nombreFuente << std::endl;
     }
 };
 
+vector<Record>conexiones;
 
-vector<Conexiones>conexiones;
-
-void leerDatos(string path)//funcion aparte 
+void leerDatos(string path)
 {
     ifstream fileIn;
     fileIn.open(path); //path es el directorio
@@ -42,8 +90,6 @@ void leerDatos(string path)//funcion aparte
     string line, partes;
     vector<string> valores;
     
-
-
     while(fileIn.good())
     {
         getline(fileIn, line);
@@ -60,231 +106,39 @@ void leerDatos(string path)//funcion aparte
 			valores[7] = valores[7].substr(0, valores[7].size()-1);
 		}
 
-        Conexiones c(valores[2], valores[3], valores[4], valores[5]);
-        conexiones.push_back(c);
+        Record r(valores[0], valores[1], valores[2], valores[3], valores[4], valores[5], valores[6], valores[7]);
+        conexiones.push_back(r);
         valores.clear();
     }
 }
 
-template <class T>
-class Nodo
+class InfoConexiones
 {
     public:
-    T value;
-    Nodo<T> *next;
-    Nodo<T> *prev;
 
-    Nodo<T>(T val, Nodo<T> *n, Nodo<T> *p)
-    {
-        value = val;
-        next = n;
-        prev = p;
-    };
+    int puertoRemoto;
+    string ipRemota;
+    string nombreRemoto;
 
-    T getVal()
+    InfoConexiones(int pR, string ipR, string nR) //constructor 
     {
-        return value;
-    };
-
-    void setVal(T val)
-    {
-        value = val;
-    };
-
-    Nodo<T> *getNext()
-    {
-        return next;
-    };
-
-    void setNext(Nodo<T> *n)
-    {
-        next = n;
-    };
-
-    Nodo<T> *getPrev()
-    {
-        return prev;
-    };
-
-    void setPrev(Nodo<T> *p)
-    {
-        prev = p;
-    };
+        puertoRemoto = pR;
+        ipRemota = ipR;
+        nombreRemoto = nR;
+    }
 };
 
-template <class T>
-class conexionesComputadora
+class ConexionesComputadora
 {
     public:
-    Nodo<T> *head;
-    Nodo<T> *tail;
 
-    conexionesComputadora()
-    {
-        head = NULL;
-        tail = head;
-    }
+    string ip;
+    string nombre;
+    list <InfoConexiones> entrantes;
+    list <InfoConexiones> salientes;
+}
 
-    int lengthH()
-    {
-        int length = 0;
-        Nodo<T> *n = next;
 
-        while (n != NULL)
-        {
-            length++;
-            n = n ->getNext();
-        }
-
-        return length; 
-    }
-
-    int lengthT()
-    {
-        int length = 0;
-        Nodo<T> *t = tail;
-
-        while (t != NULL)
-        {
-            length++;
-            t = t -> getNext();
-        }
-
-        return length;
-    }
-
-    void append(Nodo<T> *nuevo) //append
-    {
-        if(head==NULL)
-        {
-			head=nuevo;
-			tail=nuevo;
-		}
-        else
-        {
-			tail->getNext()=nuevo;
-			nuevo->getPrev()=tail;
-			tail=nuevo;
-		}
-        
-	}
-
-    void push(T val)
-    {
-        Nodo<T> *nuevo=new Nodo<T>(val);
-		append(nuevo);
-	}
-
-    void insert(Nodo<T> *nuevo, int pos) //NODO 
-    {
-		if(head==NULL)
-        {
-			head=nuevo;
-			tail=nuevo;
-		}
-        else if(pos==0)
-        {
-			nuevo->getNext()=head;
-			head->getPrev()=nuevo;
-			head=nuevo;
-		}
-        else
-        {
-			Nodo<T> *h = head;
-			int i = 0;
-			while(h != NULL && i < pos)
-            {
-				h = h->getNext();
-				i++;
-			}
-			if(h == NULL)
-            {
-				tail->getNext()=nuevo;
-				nuevo->getPrev()=tail;
-				tail=nuevo;
-			}
-            else
-            {
-				nuevo->getNext() = h;
-				nuevo->getPrev() = h->setPrev();
-				h->setPrev()->getNext()=nuevo;
-				h->setPrev()=nuevo;
-				
-			}
-		}
-	}
-
-    void duplicar()
-    {
-		Nodo<T> *h = head;
-		while(h != NULL)
-        {
-			Nodo<T> *sig = h ->getNext();
-			Nodo<T> *nuevo=new Nodo<T>(t ->getVal());
-			nuevo->getNext() = sig;
-			nuevo->getPrev() = h;
-			h->getNext() = nuevo;
-			if(sig != NULL)
-            {
-				sig->getPrev() = nuevo;
-			}
-            else
-            {
-				tail=nuevo;
-			}
-			h = sig;
-		}
-	}
-
-    void remove(T value)
-    {
-		Nodo<T> *h = head;
-		while(h != NULL)
-        {
-			if(h ->getVal() == value)
-            {
-				if(h->getPrev()==NULL)
-                {
-					head=h->getNext();
-				}
-                else
-                {
-					h->getPrev()->getNext() = h->setNext();
-				}
-				if(h->getNext() == NULL)
-                {
-					tail=h->getPrev();
-				}
-                else
-                {
-					h->getNext()->getPrev()=h->setPrev();
-				}
-				delete h;
-				return;
-			}
-			h=h->getNext();
-		}
-		
-	}
-
-    void insert(T value, int pos) // T VALUE
-    {
-		Nodo<T> *nuevo=new Nodo<T>(value);
-		insert(nuevo, pos);
-	}
-
-    void print()
-    {
-		Nodo<T> *h = head;
-		while(h != NULL)
-        {
-			std::cout << h -> getVal() << "," << std::endl;
-			h = h->getNext();
-		}	
-		std::cout <<    << std::endl;
-	}
-
-};
 
 int main()
 {
