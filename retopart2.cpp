@@ -162,7 +162,7 @@ class ConexionesComputadora
 
 int main()
 {
-    leerDatos();
+    leerDatos("/iCloudDrive/Escritorio/RETO_PARTE_2/RETO2/nuevo9.csv");
     unordered_map<string, ConexionesComputadora> cc;
     for (Record r: conexiones)
     {
