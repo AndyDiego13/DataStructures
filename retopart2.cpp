@@ -73,6 +73,12 @@ class Record
 
         nombreDestino = nD;  
     }
+    
+    string getIpFuente()
+    {
+        return ipFuente;
+    }
+
 
     void imprimirNombreFuente()
     {
@@ -177,7 +183,30 @@ int main()
             
         } 
     }
+
+    vector<Record> r;
+
+    int counter = 0;
+    string ingresarIp = "-";
+    while (ingresarIp == "-")
+    {
+        ingresarIp = r[counter].getIpFuente();
+        counter++;
+    }
+
+    int index = ingresarIp.find_last_not_of(".\\");
+    string nIp = ingresarIp.substr(0, index);
+    string crearIp;
+    std::cout << "Inserta un número entre 1 y 150 para generar una IP: " << std::endl;
+    cin >> crearIp;
+
+    string resultado = nIp + "." + crearIp;
+
+    std::cout << "La IP generada es: " << std::endl;
+    std::cout << resultado << std::endl;
     
+
+
     
 
     return 0;
