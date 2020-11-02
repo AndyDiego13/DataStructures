@@ -175,9 +175,9 @@ int main()
             }
             cc[r.ipFuente].nuevaSaliente(r.puertoDestino, r.ipDestino, r.nombreDestino);
             
-        }
-        
+        } 
     }
+    
     
 
     return 0;
