@@ -28,6 +28,8 @@ class Record
     int puertoDestino;
     string nombreDestino;
 
+    Record()=default;
+
     Record(string f, string h, string ipF, string pF, string nF, string ipD, string pD, string nD)
     {
         fecha = f;
@@ -162,6 +164,22 @@ class ConexionesComputadora
         InfoConexiones ic(puerto, ip, nombre);
         salientes.push_front(ic);
     }
+
+    list<InfoConexiones> getCE()
+    {
+        return entrantes;
+    }
+
+    list<InfoConexiones> getCS()
+    {
+        return salientes;
+    }
+
+    void imprimirCc()
+    {
+        std::cout << "La IP del usuario es: " << ip << std::endl;
+        std::cout << "El nombre del usuario es: " << nombre << std::endl;
+    }
 };
 
 
@@ -204,7 +222,19 @@ int main()
 
     std::cout << "La IP generada es: " << std::endl;
     std::cout << resultado << std::endl;
-    
+
+    ///----
+
+    string name;
+    list<InfoConexiones> inicio;
+    list<InfoConexiones> final;
+
+
+    ConexionesComputadora concomp(resultado, name, inicio, final);
+    concomp.imprimirCc();
+
+    int index2 = concomp.getCE().find_last_of(".\\");
+    string recibe = concomp.getCE();
 
 
     
