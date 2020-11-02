@@ -34,7 +34,7 @@ class Record
         hora = h;
         ipFuente = ipF;
 
-        if (pF == '-')
+        if (pF == "-")
         {
             puertoFuente = 0;
         }
@@ -54,7 +54,7 @@ class Record
         nombreFuente = nF;
         ipDestino = ipD;
 
-        if (pD == '-')
+        if (pD == "-")
         {
             puertoDestino = 0;
         }
@@ -136,14 +136,50 @@ class ConexionesComputadora
     string nombre;
     list <InfoConexiones> entrantes;
     list <InfoConexiones> salientes;
-}
+
+    ConexionesComputadora() = default;
+
+    ConexionesComputadora(string ip, string nombre)
+    {
+        this -> ip = ip;
+        this -> nombre = nombre;
+    }
+
+    void nuevaEntrante(int puerto, string ip, string nombre)
+    {
+        InfoConexiones ic(puerto, ip, nombre);
+        entrantes.push_back(ic);
+    }
+
+    void nuevaSaliente(int puerto, string ip, string nombre)
+    {
+        InfoConexiones ic(puerto, ip, nombre);
+        salientes.push_front(ic);
+    }
+};
 
 
 
 int main()
 {
-    conexionesComputadora<int> cc;
-    /* code */
+    leerDatos();
+    unordered_map<string, ConexionesComputadora> cc;
+    for (Record r: conexiones)
+    {
+        if (r.ipFuente != "-")
+        {
+            if (cc.find(r.ipFuente)==cc.end())
+            {
+                ConexionesComputadora CC(r.ipFuente, r.nombreFuente);
+                cc[r.ipFuente] = CC;
+            }
+            cc[r.ipFuente].nuevaSaliente(r.puertoDestino, r.ipDestino, r.nombreDestino);
+            
+        }
+        
+    }
+    
+
     return 0;
 }
 
