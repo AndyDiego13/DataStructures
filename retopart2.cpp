@@ -230,16 +230,6 @@ int main()
     list<InfoConexiones> final;
 
 
-    ConexionesComputadora concomp(resultado, name, inicio, final);
-    concomp.imprimirCc();
-
-    int index2 = concomp.getCE().find_last_of(".\\");
-    string recibe = concomp.getCE();
-
-    InfoConexiones ic;
-    ic.imprimirconexion();
-
-
 
 
 
