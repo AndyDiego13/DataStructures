@@ -236,6 +236,17 @@ int main()
     int index2 = concomp.getCE().find_last_of(".\\");
     string recibe = concomp.getCE();
 
+    InfoConexiones ic;
+    ic.imprimirconexion();
+
+
+
+
+
+    std::cout << "Estas son las conexiones entrantes: " << inicio.size() << std::endl;
+    std::cout << "Estas son las conexiones salientes: " << final.size() << std::endl;
+
+
 
     
 
