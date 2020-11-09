@@ -207,22 +207,21 @@ class ConexionesComputadora
 int main()
 {
     leerDatos("/iCloudDrive/Escritorio/RETO_PARTE_2/RETO2/nuevo9.csv");
-        unordered_map<string, ConexionesComputadora> cc;
+    unordered_map<string, ConexionesComputadora> cc;
 
 
     for(Record r: conexiones)
     {
-            if (r.ipFuente != "-")
+        if (r.ipFuente != "-")
+        {
+            if (cc.find(r.ipFuente)==cc.end())
             {
-                if (cc.find(r.ipFuente)==cc.end())
-                {
-                    ConexionesComputadora CC(r.ipFuente, r.nombreFuente);
-                    cc[r.ipFuente] = CC;
-                }
-                cc[r.ipFuente].nuevaSaliente(r.puertoDestino, r.ipDestino, r.nombreDestino);
-                
-            } 
-        }    
+                ConexionesComputadora CC(r.ipFuente, r.nombreFuente);
+                cc[r.ipFuente] = CC;
+            }
+            cc[r.ipFuente].nuevaSaliente(r.puertoDestino, r.ipDestino, r.nombreDestino); 
+        } 
+    }
     
     vector<Record> r;
 
