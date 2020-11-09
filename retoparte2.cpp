@@ -2,7 +2,7 @@
 Reto parte 2
 María José Mendoza Muñiz    A01652137
 Andrea Serrano Diego        A01028728
-Fernando
+Fernando Santoyo Moncada    A010
 */
 
 #include <iostream>
@@ -143,29 +143,36 @@ class ConexionesComputadora
     string nombre;
     list <InfoConexiones> entrantes;
     list <InfoConexiones> salientes;
-    int i = 0;
-    int j = 0;
+    //int i = 0;
+    //int j = 0;
 
-    ConexionesComputadora() = default;
-
-    ConexionesComputadora(string ip, string nombre)
+    /* constructor sin parametros
+    ConexionesComputadora()
     {
-        this -> ip = ip;
-        this -> nombre = nombre;
+        ip;
+        nombre = name
+
+    }
+    */
+
+    ConexionesComputadora(string iP, string name)
+    {
+        ip = iP;
+        nombre = name;
     }
 
     void nuevaEntrante(int puerto, string ip, string nombre)
     {
         InfoConexiones ic(puerto, ip, nombre);
         entrantes.push_back(ic);
-        i++;
+        //i++;
     }
 
     void nuevaSaliente(int puerto, string ip, string nombre)
     {
         InfoConexiones ic(puerto, ip, nombre);
         salientes.push_front(ic);
-        j++;
+        ///j++;
     }
 
     list<InfoConexiones> getCE()
@@ -182,8 +189,8 @@ class ConexionesComputadora
     {
        cout << "La IP del usuario es: " << ip << endl;
        cout << "El nombre del usuario es: " << nombre << endl;
-       cout << "Conexiones entrantes: " << i << endl;
-       cout << "Conexiones salientes: " << j << endl;
+       //cout << "Conexiones entrantes: " << i << endl;
+       //cout << "Conexiones salientes: " << j << endl;
     }
 
     /*
@@ -237,7 +244,7 @@ int main()
     list<InfoConexiones> inicio;
     list<InfoConexiones> final;
 
-    ConexionesComputadora concomp;
+    //ConexionesComputadora concomp;
     //concomp.imprimirCc();
     
     return 0;

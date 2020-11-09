@@ -32,8 +32,8 @@ template<class T>
 class Graph
 {
     public:
-    unordered_map<T, Nodo<T>> nodos;
-    vector<vector<int>> matrix;
+    unordered_map<T, Nodo<T> > nodos;
+    vector< vector<int> > matrix;
     int idActual;
 
     Graph()
@@ -65,7 +65,7 @@ class Graph
 
 int main()
 {
-    vector<vector<int>> m;
+    vector< vector<int> > m;
     vector<int> n;
 
     n.push_back(0);
