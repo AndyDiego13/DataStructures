@@ -2,7 +2,7 @@
 Reto parte 2
 María José Mendoza Muñiz    A01652137
 Andrea Serrano Diego        A01028728
-Fernando Santoyo Moncada    A010
+Fernando Santoyo Moncada    A01028389
 */
 
 #include <iostream>
