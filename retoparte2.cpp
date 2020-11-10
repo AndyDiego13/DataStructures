@@ -146,19 +146,23 @@ class ConexionesComputadora
     //int i = 0;
     //int j = 0;
 
-    /* constructor sin parametros
+    //constructor sin parametros/vacio se utiliza cuando quieres un constructor generico sin importar los parametros
+    //
     ConexionesComputadora()
     {
-        ip;
-        nombre = name
+        this -> ip = ip;
+        this -> nombre = nombre;  
 
     }
-    */
 
-    ConexionesComputadora(string iP, string name)
+    //constructor con parametros estrictamente para la implementacion deben de estar todas las variables
+
+    ConexionesComputadora(string iP, string name, list<InfoConexiones> entradas, list<InfoConexiones> salidas)
     {
         ip = iP;
         nombre = name;
+        entrantes = entradas;
+        salientes = salidas;
     }
 
     void nuevaEntrante(int puerto, string ip, string nombre)
@@ -216,19 +220,32 @@ int main()
     leerDatos("/iCloudDrive/Escritorio/RETO_PARTE_2/RETO2/nuevo9.csv");
     unordered_map<string, ConexionesComputadora> cc;
 
-
+    /*
     for(Record r: conexiones)
     {
         if (r.ipFuente != "-")
         {
             if (cc.find(r.ipFuente)==cc.end())
             {
-                ConexionesComputadora CC(r.ipFuente, r.nombreFuente);
+                ConexionesComputadora cc(r.ipFuente, r.nombreFuente);
                 cc[r.ipFuente] = CC;
             }
             cc[r.ipFuente].nuevaSaliente(r.puertoDestino, r.ipDestino, r.nombreDestino); 
         } 
     }
+    */
+
+   for(Record r: conexiones)
+   {
+       if (r.ipFuente != "-")
+       {
+           if (cc.find(r.ipFuente) == cc.end())
+           {
+               //ConexionesComputadora a(r.ipFuente,r.nombreFuente);
+               //cc[r.ipFuente] = a;
+           } 
+       }
+   }
     
     vector<Record> r;
 
