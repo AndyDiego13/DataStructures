@@ -68,7 +68,7 @@ class Datos
             {
                 valores[7] = valores[7].substr(0, valores[7].size()-1);
             }
-
+            //
             Record r(valores[0], valores[1], valores[4], valores[7]);
             conexiones.push_back(r);
             valores.clear();
@@ -77,7 +77,7 @@ class Datos
 
     void imprimir()
     {
-        std::cout << "Número de registros en archivo" << conexiones.size() << std::endl;
+        std::cout << "Número de registros en archivo: " << conexiones.size() << std::endl;
     }
 
     int compararPorFecha(Record a, Record b)
@@ -151,6 +151,197 @@ class Sort
         std::cout << std::endl;   
     }
 };
+
+template<class T>
+class MergeSort: public Sort<T>
+{
+    public:
+
+    void sort(vector<T> &data, int comparador(T a, T b))
+    {
+        sortAux(data, 0, data.size() - 1, comparador);
+    }
+
+    private:
+
+    void sortAux(vector<T> &data, int lo, int hi, int comparador(T a, T b))
+    {
+        if (lo >= hi)
+        {
+            return;
+        }
+
+        int mid = (lo+hi)/2;
+
+        sortAux(data, lo, mid, comparador);
+        sortAux(data, mid + 1, hi, comparador);
+        merge(data, lo, mid, hi, comparador); 
+    }
+
+    void merge(vector<T> &data, int low, int mid, int hi, int comparador(T a, T b))
+    {
+        int sizeA = mid - low + 1;
+        int sizeB = hi - mid;
+
+        vector<T> copiaA;
+        vector<T> copiaB;
+
+        for (int i = 0; i < sizeA; i++)
+        {
+            copiaA.push_back(data[low + i]);
+        }
+
+        for (int i = 0; i < sizeB; i++)
+        {
+            copiaB.push_back(data[mid + i + 1]);
+        }
+
+        int indexA = 0;
+        int indexB = 0;
+        int indexData = low;
+
+        while (indexA < sizeA && indexB < sizeB)
+        {
+            if (comparador(copiaA[indexA], copiaB[indexB]) < 0)
+            {
+                data[indexData] = copiaA[indexA];
+                indexA++;
+            }
+            else
+            {
+                data[indexData] = copiaB[indexB];
+                indexB++;
+            }
+
+            indexData++; 
+        }
+
+        while (indexA < sizeA)
+        {
+            data[indexData] = copiaA[indexA];
+            indexA++;
+            indexData++;
+        }
+
+        while (indexB < sizeB)
+        {
+            data[indexData] = copiaB[indexB];
+            indexB++;
+            indexData++;
+        }   
+    } 
+};
+
+template <class T, class M>
+class BusquedaBinaria2
+{
+    public:
+    int busquedaBinaria2(vector<T> a, M buscado, int comparador(T a, M b))
+    {
+        int inicio = 0;
+        int fin = z.size() - 1;
+        while (fin >= inicio)
+        {
+            int medio = (inicio + fin)/2;
+            if (comparador(a[medio], buscado) == 0)
+            {
+                return medio;
+            }
+            else if (comparador(a[medio], buscado) < 0)
+            {
+                inicio = medio + 1;
+            }
+            else
+            {
+                fin = medio - 1;
+            }  
+        }
+        return -1;   
+    }
+
+    int compararPorNombreFuente2(Record a, string b)
+    {
+	    if(a.nombreFuente<b)
+        {
+		    return -1;
+	    }
+        else if (a.nombreFuente==b)
+        {
+		    return 0;
+	    }
+        else
+        {
+		    return 1;
+	    }
+    }
+};
+
+
+template<class T>
+int busquedaBinaria(vector<T> a, T buscado, int comparador(T a, T b))
+{
+    int inicio = 0;
+    int fin = a.size() - 1;
+
+    while (fin >= inicio)
+    {
+        int medio = (inicio + fin)/2;
+        if (comparador(a[medio], buscado) == 0)
+        {
+            return medio;
+        }
+        else if (comparador(buscado, a[medio]) > 0)
+        {
+            inicio = medio + 1;
+        }
+        else
+        {
+            fin = medio - 1;
+        }
+    }
+
+    return -1;
+};
+
+int main()
+{
+    Datos d;
+    d.leerDatos("/Users/andydiego13/Downloads/copianuevo9.csv");
+    d.imprimir();
+
+    MergeSort<Record> s;
+
+    string a = "jeffrey.reto.com";
+    //string a = "betty.reto.com";
+    //string a = "katherine.reto.com";
+    //string a = "scott.reto.com";
+    //string a = "benjamin.reto.com";
+    //string a = "samuel.reto.com";
+    //string a = "raymond.reto.com";
+
+    Record r (" ", " ", "nancy.reto.com", " ");
+
+    //Pregunta 5
+    //string a = "server.reto.com";
+
+    //Pregunta 6
+    //string a = "protonmail.com";
+
+
+
+    //BusquedaBinaria2<Record>  bb2;
+
+    /*int pos = busquedaBinaria2(conexiones, a, compararPorNombreFuente2);
+    if (pos != -1)
+    {
+        std::cout << "Encontrado" << std::endl;
+    }
+    */
+    
+
+
+    return 0;
+}
 
 
 
