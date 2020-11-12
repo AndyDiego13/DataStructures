@@ -232,57 +232,14 @@ class MergeSort: public Sort<T>
     } 
 };
 
-template <class T, class M>
-class BusquedaBinaria2
-{
-    public:
-    int busquedaBinaria2(vector<T> a, M buscado, int comparador(T a, M b))
-    {
-        int inicio = 0;
-        int fin = z.size() - 1;
-        while (fin >= inicio)
-        {
-            int medio = (inicio + fin)/2;
-            if (comparador(a[medio], buscado) == 0)
-            {
-                return medio;
-            }
-            else if (comparador(a[medio], buscado) < 0)
-            {
-                inicio = medio + 1;
-            }
-            else
-            {
-                fin = medio - 1;
-            }  
-        }
-        return -1;   
-    }
+vector<Record> conexiones;
 
-    int compararPorNombreFuente2(Record a, string b)
-    {
-	    if(a.nombreFuente<b)
-        {
-		    return -1;
-	    }
-        else if (a.nombreFuente==b)
-        {
-		    return 0;
-	    }
-        else
-        {
-		    return 1;
-	    }
-    }
-};
-
-
-template<class T>
+template <class T>
 int busquedaBinaria(vector<T> a, T buscado, int comparador(T a, T b))
 {
     int inicio = 0;
     int fin = a.size() - 1;
-
+    
     while (fin >= inicio)
     {
         int medio = (inicio + fin)/2;
@@ -293,7 +250,7 @@ int busquedaBinaria(vector<T> a, T buscado, int comparador(T a, T b))
         else if (comparador(buscado, a[medio]) > 0)
         {
             inicio = medio + 1;
-        }
+        }   
         else
         {
             fin = medio - 1;
@@ -301,25 +258,106 @@ int busquedaBinaria(vector<T> a, T buscado, int comparador(T a, T b))
     }
 
     return -1;
+};   
+    
+
+int compararPorNombreFuente2(Record a, string b)
+{
+	if(a.nombreFuente<b)
+    {
+		return -1;
+	}
+    else if (a.nombreFuente==b)
+    {
+	    return 0;
+	}
+    else
+    {
+		return 1;
+	}
 };
+
+int compararPorNombreFuente(Record a, Record b)
+{
+	if(a.nombreFuente < b.nombreFuente)
+	{
+	    return -1;
+	}
+	else if (a.nombreFuente == b.nombreFuente)
+	{
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+};
+
+int compararPorNombreDestino2(Record a, string b)
+{
+	if(a.nombreDestino < b)
+	{
+		return -1;
+	}
+	else if (a.nombreDestino == b)
+	{
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+}
+
+template <class T, class M>
+int busquedaBinaria2(vector<T> a, M buscado, int comparador(T a, M b))
+{
+	int inicio=0;
+	int fin=a.size()-1;
+	while(fin>=inicio)
+	{
+		int medio=(inicio+fin)/2;
+		if(comparador(a[medio],buscado)==0)
+		{
+			return medio;
+		}
+		else if(comparador(a[medio], buscado)<0)
+		{
+			inicio=medio+1;
+		}
+		else
+		{
+			fin=medio-1;
+		}
+	}
+	return -1;
+} 
+
+
 
 int main()
 {
+    
     Datos d;
     d.leerDatos("/Users/andydiego13/Downloads/copianuevo9.csv");
+    std::cout << "datosleidos" << std::endl;
     d.imprimir();
 
     MergeSort<Record> s;
 
-    string a = "jeffrey.reto.com";
+    s.sort(conexiones, compararPorNombreFuente);
+    std::cout << "datosordenados" << std::endl;
+
+    //string a = "jeffrey.reto.com";
     //string a = "betty.reto.com";
     //string a = "katherine.reto.com";
     //string a = "scott.reto.com";
     //string a = "benjamin.reto.com";
     //string a = "samuel.reto.com";
     //string a = "raymond.reto.com";
+    //string a = "brandon.reto.com";
 
-    Record r (" ", " ", "nancy.reto.com", " ");
+    Record r (" ", " ", "brian.reto.com", " ");
 
     //Pregunta 5
     //string a = "server.reto.com";
@@ -327,16 +365,19 @@ int main()
     //Pregunta 6
     //string a = "protonmail.com";
 
-
-
-    //BusquedaBinaria2<Record>  bb2;
-
-    /*int pos = busquedaBinaria2(conexiones, a, compararPorNombreFuente2);
+    /*int pos = busquedaBinaria(conexiones, r, compararPorNombreFuente);
     if (pos != -1)
     {
         std::cout << "Encontrado" << std::endl;
     }
     */
+   int pos = busquedaBinaria(conexiones, r, compararPorNombreFuente);
+   if (pos != -1)
+   {
+       std::cout << "ENCONTRADO" << std::endl;
+   }
+   
+    
     
 
 
