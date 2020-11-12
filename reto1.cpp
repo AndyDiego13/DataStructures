@@ -346,8 +346,17 @@ int main()
     MergeSort<Record> s;
 
     s.sort(conexiones, compararPorNombreFuente);
-    std::cout << "datosordenados" << std::endl;
+    std::cout << "datosordenados " << std::endl;
 
+    Record r (" ", " ", "brandon.reto.com", " ");
+
+   int pos = busquedaBinaria(conexiones, r, compararPorNombreFuente);
+   if (pos == -1)
+   {
+       std::cout << "ENCONTRADO" << std::endl;
+   }
+   
+    
     //string a = "jeffrey.reto.com";
     //string a = "betty.reto.com";
     //string a = "katherine.reto.com";
@@ -356,8 +365,6 @@ int main()
     //string a = "samuel.reto.com";
     //string a = "raymond.reto.com";
     //string a = "brandon.reto.com";
-
-    Record r (" ", " ", "brian.reto.com", " ");
 
     //Pregunta 5
     //string a = "server.reto.com";
@@ -371,13 +378,6 @@ int main()
         std::cout << "Encontrado" << std::endl;
     }
     */
-   int pos = busquedaBinaria(conexiones, r, compararPorNombreFuente);
-   if (pos != -1)
-   {
-       std::cout << "ENCONTRADO" << std::endl;
-   }
-   
-    
     
 
 
