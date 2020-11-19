@@ -71,10 +71,58 @@ class LinkedList
         }
     }
     //
-    void getElementAt(int pos)
+    T getElementAt(int pos)
     {
-
+        //obtener un valor en un posicion,iterar sobre toda la lista
+        Nodo<T> *temp = root;
+        int i = 0;
+        //siempre y cuando este en NULL avanzamos
+        while (temp != NULL && i<pos)
+        {
+            //movernos cuando ya confirme que si hay algo en el nodo anterior si no segmentation fault = F
+            temp = temp->next;
+            i++;
+        }
+        if (i == pos)
+        {
+            return temp->value;
+        }
+        else
+        {
+            return NULL;
+        }
     }
+
+    void insert(Nodo<T> *nuevo, int pos)
+    {
+        //caso lista vacia
+        if (root == NULL)
+        {
+            root = nuevo;
+        } 
+        //inserte en la posicion 0
+        else if (pos == 0)
+        {
+           nuevo->next = root;
+           root = nuevo; 
+        }
+        else
+        {
+            //estamos haciendo el append si no se cumple la parte de la posicion
+            Nodo<T> *temp=root;
+			int i=0;
+            //pos -1 para que el de antes sepa a donde apuntar
+			while(temp->next!=NULL && i<pos-1)
+            {
+				temp=temp->next;
+				i++;
+			}
+			nuevo->next=temp->next;
+			temp->next=nuevo;
+        }
+        
+    }
+    
 };
 
 int main()
