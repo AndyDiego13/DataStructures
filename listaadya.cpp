@@ -3,6 +3,8 @@
 
 using namespace std;
 
+//class Queu maybe??
+
 template<class T>
 class Nodo
 {
@@ -12,7 +14,7 @@ class Nodo
     T value;
     unordered_map<Nodo<T> *, int> siguientes;
 
-    Nodo(T value)
+    Nodo(T val)
     {
         value = val;
 
@@ -20,7 +22,7 @@ class Nodo
 
     void agregarArcoDirigidoConPeso(Nodo<T> *sig, int peso)
     {
-        ///si no lo tenemos insetamos
+        ///si no lo tenemos insertamos
         if(siguientes.find(sig) == siguientes.end())
         {
             siguientes[sig] = peso;
@@ -47,7 +49,18 @@ class Nodo
         
     }
 
-    bool conexion(Nodo<T>) 
+    bool conexion(Nodo<T> *nodo, Nodo<T> *sig)//EVALUAR LOS DOS NODOS
+    {
+        if(siguientes.find(sig) == siguientes.end() && siguientes.find(nodo) == siguientes.end())
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+
+	}
 };
 
 //otro diccionario donde vamos a tener el valor y otro apuntador a un Nodo
@@ -56,7 +69,7 @@ template<class T>
 class Graph
 {
     public:
-
+    //por cada    valor un nodo
     unordered_map<T, Nodo<T> *> nodos;
 
     //solo se preocupara por los valores 
@@ -106,12 +119,13 @@ class Graph
         }
     }
 
-    //modificar valor recibiera los dos nodos
+    /*//modificar valor recibiera los dos nodos
     void modificar(T nodo1, T nodo2)
     {
         //encontrar que existan
         //buscar hay 
     }
+    */
 };
 
 
@@ -132,6 +146,6 @@ int main()
    g.agregarNodo("Toluca");
 
    g.agregarArcoDirigidoConPeso("CDMX", "Tlaxcala", 50);
-   g.agregarArcoConPeso()
+   g.agregarArcoConPeso("Cuernavaca", "Puebla", 765);
     return 0;
 }
