@@ -72,7 +72,13 @@ class Dictionary
         
         NO SE PUEDEN MODIFICAR LOS ITERADORES LO QUE SE REGRESA SOLO ES UN COPIA POR ESO NO SE GUARDABA
         */
+
+
+
+
        //i = interador
+       //si tenemos un apuntador a cada uno de los objetos y si se guardan los cambios
+       //NOTA c.begin es para un iterador constante pero obvi no se puede con apuntadores just fun fact
 		for(auto i=data[pos].begin(); i!=data[pos].end(); i++)
         {
 			if(i->key==key)
@@ -84,9 +90,9 @@ class Dictionary
 		Pair<K,V> nuevo(key, value);
 		data[pos].push_back(nuevo);
 		return;
-	}	
+	}
 	
-	
+	//es un insert que le digamos la funcion de hash para que la utilice
 	void insert(K key, V value, int hash(K llave))
     {
 		int pos=hash(key)%size;
@@ -103,10 +109,14 @@ class Dictionary
 		return;
 	}
 	
-	bool buscar(K key){
+	bool buscar(K key)
+    {
 		int pos=key%size;
-		for(Pair<K,V> elemento: data[pos]){
-			if(elemento.key==key){
+        //checar si esa llave ya esta dentro de la lista
+		for(Pair<K,V> elemento: data[pos])
+        {
+			if(elemento.key==key)
+            {
 				return true;
 			}
 		}
@@ -126,7 +136,9 @@ class Dictionary
 };
 
 
-int hashString(string key){
+int hashString(string key)
+{
+    //return hash<string> () (key);
 	return key.length();
 }
 
@@ -136,6 +148,7 @@ int main(){
 	d.insert(400, "b");
 	d.insert(400, "a");
 	d.insert(15623, "c");
+    //std::cout << hash<string> () ("llave") << std::endl; d.print()
 	Dictionary<string, int> calificaciones;
 	calificaciones.insert("Juan", 95, hashString);
 	calificaciones.print();
