@@ -11,6 +11,7 @@ Fernando Santoyo Moncada    A01028389
 #include <vector>
 #include <list>
 #include <unordered_map>
+#include <unordered_set>
 
 using namespace std;
 
@@ -229,14 +230,12 @@ class ConexionesComputadora
     {
         InfoConexiones ic(puerto, ip, nombre);
         entrantes.push_back(ic);
-        //i++;
     }
 
     void nuevaSaliente(int puerto, string ip, string nombre)
     {
         InfoConexiones ic(puerto, ip, nombre);
         salientes.push_front(ic);
-        ///j++;
     }
 
     list<InfoConexiones> getCE()
@@ -253,25 +252,99 @@ class ConexionesComputadora
     {
        cout << "La IP del usuario es: " << ip << endl;
        cout << "El nombre del usuario es: " << nombre << endl;
-       //cout << "Conexiones entrantes: " << i << endl;
-       //cout << "Conexiones salientes: " << j << endl;
     }
-
-    /*
-    void imprimirConexion()
-    {
-        operator std::string() const { return std::string(str, len); }
-
-
-        InfoConexiones * item = new InfoConexiones;
-
-        string ultimaConexion = entrantes.back();
-        cout << ultimaConexion << endl;
-
-        delete item;
-    }
-*/
 };
+
+template <class K, class V>
+class Pair
+{
+	public:
+	K key;
+	V value;
+    //constructor vacio
+	Pair()
+    {
+		key=NULL;
+		value=NULL;
+	}
+	//constructor parametros
+	Pair(K k, V v)
+    {
+		key=k;
+		value=v;
+	}
+};
+
+template <class K, class V>
+class Dictionary{
+	public:
+	list< Pair<K,V> > *data;
+	int size;
+	
+	Dictionary(){
+		size=100;
+		data= new list< Pair<K,V> >[size];
+	}
+	
+	Dictionary(int s){
+		size=s;
+		data= new list< Pair<K,V> >[size];
+	}
+	
+	void insert(K key, V value){
+		int pos=key%size;
+		//for(Pair<K,V> elemento: data[pos])
+		for(auto i=data[pos].begin(); i!=data[pos].end(); i++){
+			if(i->key==key){
+				i->value=value;
+				return;
+			}	
+		}
+		Pair<K,V> nuevo(key, value);
+		data[pos].push_back(nuevo);
+		return;
+	}	
+	
+	
+	void insert(K key, V value, int hash(K llave)){
+		int pos=hash(key)%size;
+		//cout<<pos<<endl;
+		//for(Pair<K,V> elemento: data[pos])
+		for(auto i=data[pos].begin(); i!=data[pos].end(); i++){
+			if(i->key==key){
+				i->value=value;
+				return;
+			}	
+		}
+		Pair<K,V> nuevo(key, value);
+		data[pos].push_back(nuevo);
+		return;
+	}
+	
+	bool buscar(K key){
+		int pos=key%size;
+		for(Pair<K,V> elemento: data[pos]){
+			if(elemento.key==key){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	void print(){
+		for(int i=0; i<size; i++){
+			for(Pair<K,V> elemento:data[i]){
+				cout<<elemento.key<<":"<<elemento.value<<endl;
+			}
+		}
+	}
+};
+
+
+int hashString(string key)
+{
+	return key.length();
+}
 
 
 
@@ -289,6 +362,10 @@ int main()
     string resultado = nIp + "." + crearIp;
     cout << "La IP generada es: " << endl;
     cout << resultado << endl;
+
+    ConexionesComputadora conexcom;
+    Dictionary<string, ConexionesComputadora> diccc;
+    diccc.print();
 
     return 0;
 }
