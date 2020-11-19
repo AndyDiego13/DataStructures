@@ -87,6 +87,7 @@ class Record
     }
 };
 
+/*
 vector<Record>conexiones;
 
 void leerDatos(string path)
@@ -118,7 +119,7 @@ void leerDatos(string path)
         valores.clear();
     }
 }
-
+*/
 class InfoConexiones
 {
     public:
@@ -217,7 +218,7 @@ class ConexionesComputadora
 
 int main()
 {
-    leerDatos("/iCloudDrive/Escritorio/RETO_PARTE_2/RETO2/nuevo9.csv");
+    //leerDatos("/iCloudDrive/Escritorio/RETO_PARTE_2/RETO2/nuevo9.csv");
     unordered_map<string, ConexionesComputadora> cc;
 
     /*
@@ -234,7 +235,7 @@ int main()
         } 
     }
     */
-
+   /*
    for(Record r: conexiones)
    {
        if (r.ipFuente != "-")
@@ -245,7 +246,7 @@ int main()
                //cc[r.ipFuente] = a;
            } 
        }
-   }
+   }*/
     
     vector<Record> r;
 

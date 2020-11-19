@@ -27,7 +27,7 @@ class Record
     int puertoDestino;
     string nombreDestino;
 
-    Record()=default;
+    ///Record()=default;
 
     Record(string f, string h, string ipF, string pF, string nF, string ipD, string pD, string nD)
     {
@@ -87,6 +87,7 @@ class Record
     }
 };
 
+/*
 vector<Record>conexiones;
 
 void leerDatos(string path)
@@ -118,6 +119,99 @@ void leerDatos(string path)
         valores.clear();
     }
 }
+*/
+
+class Datos
+{
+    public:
+    string path;
+    vector<Record> conexiones;
+
+    void leerDatos(string path)
+    {
+        ifstream fileIn;
+        fileIn.open(path); //path es el directorio
+
+        string line, partes;
+        vector<string> valores;
+        
+
+
+        while(fileIn.good())
+        {
+            getline(fileIn, line);
+            istringstream sIn(line); //separador de comas
+
+            while(getline(sIn, partes, ','))
+            {
+
+                valores.push_back(partes);
+            }
+            
+            if(valores[7].find('\r')!= valores[7].npos)
+            {
+                valores[7] = valores[7].substr(0, valores[7].size()-1);
+            }
+            //
+            Record r(valores[0], valores[1], valores[2], valores[3], valores[4], valores[5], valores[6], valores[7]);
+            conexiones.push_back(r);
+            valores.clear();
+        }
+    }
+
+    void imprimir()
+    {
+        std::cout << "Número de registros en archivo: " << conexiones.size() << std::endl;
+    }
+
+    int compararPorFecha(Record a, Record b)
+	{
+		if(a.fecha < b.fecha)
+		{
+			return -1;
+		}
+		else if (a.fecha == b.fecha)
+		{
+			return 0;
+		}
+		else
+		{
+			return 1;
+		}
+	}
+
+    int compararPorNombreFuente(Record a, Record b)
+	{
+		if(a.nombreFuente < b.nombreFuente)
+		{
+			return -1;
+		}
+		else if (a.nombreFuente == b.nombreFuente)
+		{
+			return 0;
+		}
+		else
+		{
+			return 1;
+		}
+	}
+
+    int compararPorNombreDestino(Record a, Record b)
+	{
+		if(a.nombreDestino < b.nombreDestino)
+		{
+			return -1;
+		}
+		else if (a.nombreDestino == b.nombreDestino)
+		{
+			return 0;
+		}
+		else
+		{
+			return 1;
+		}
+	}	
+};
 
 class InfoConexiones
 {
@@ -217,7 +311,8 @@ class ConexionesComputadora
 
 int main()
 {
-    leerDatos("/iCloudDrive/Escritorio/RETO_PARTE_2/RETO2/nuevo9.csv");
+    //leerDatos("/iCloudDrive/Escritorio/RETO_PARTE_2/RETO2/nuevo9.csv");
+
     unordered_map<string, ConexionesComputadora> cc;
 
     /*
@@ -234,7 +329,7 @@ int main()
         } 
     }
     */
-
+   /*
    for(Record r: conexiones)
    {
        if (r.ipFuente != "-")
@@ -245,7 +340,7 @@ int main()
                //cc[r.ipFuente] = a;
            } 
        }
-   }
+   }*/
     
     vector<Record> r;
 

@@ -33,7 +33,7 @@ class LinkedList
     //append/insert
     void append(Nodo<T> *nuevo)//obtienes la direccion del nodo que vas a agregar
     {
-        if (root = NULL)
+        if (root == NULL)
         {
             root = nuevo;
         }
@@ -70,6 +70,11 @@ class LinkedList
             temp = temp->next;
         }
     }
+    //
+    void getElementAt(int pos)
+    {
+
+    }
 };
 
 int main()
@@ -78,6 +83,7 @@ int main()
     list.append(3);
     list.append(5);
     list.append(7);
+    list.imprimir();
     
     return 0;
 }
