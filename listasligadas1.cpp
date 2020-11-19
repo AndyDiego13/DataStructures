@@ -41,15 +41,43 @@ class LinkedList
         //tenemos que llegar pasando por todos los nodos
         else
         {
-            
+            //temporal que apunta a root, apuntadores afuerzas
+            Nodo<T> *temp = root;
+            while (temp ->next!=NULL)
+            {
+                temp = temp->next;
+            }
+
+            temp->next = nuevo;
         }
-        
-        
+    }
+    //creamos una sobrecarga porque estamos iniciando con un nuevo root por lo tanto en el main no acepta insertar enteros
+    void append(T value)
+    {
+        Nodo<T> *nuevo = new Nodo<T>(value);
+        //no es recursivo porque esta jalando el append del nodo
+        append(nuevo);
+    }
+
+    void imprimir()
+    {
+        //creamos nodo temporal
+        Nodo<T> *temp = root;
+        while (temp!=NULL)
+        {
+            //imprima lo que tiene en value y avance
+            std::cout << temp->value << "," << std::endl; 
+            temp = temp->next;
+        }
     }
 };
 
 int main()
 {
+    LinkedList<int> list;
+    list.append(3);
+    list.append(5);
+    list.append(7);
     
     return 0;
 }
