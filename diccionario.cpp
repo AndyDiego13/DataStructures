@@ -28,14 +28,14 @@ template <class K, class V>
 class Dictionary
 {
 	public:
-	list<Pair<K,V>> *data;
+	list< Pair<K,V> > *data;
 	int size;
     
     //se va inicializar
 	Dictionary()
     {
 		size=100;
-		data= new list<Pair<K,V>>[size];
+		data= new list< Pair<K,V> >[size];
 	}
 	
 	Dictionary(int s)
@@ -43,7 +43,7 @@ class Dictionary
 		size=s;
 
         //arreglo de listas
-		data= new list<Pair<K,V>>[size];
+		data= new list< Pair<K,V> >[size];
 	}
 	
 	void insert(K key, V value)
@@ -70,7 +70,9 @@ class Dictionary
         return;
         //se agrega al final
         
+        NO SE PUEDEN MODIFICAR LOS ITERADORES LO QUE SE REGRESA SOLO ES UN COPIA POR ESO NO SE GUARDABA
         */
+       //i = interador
 		for(auto i=data[pos].begin(); i!=data[pos].end(); i++)
         {
 			if(i->key==key)
