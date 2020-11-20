@@ -238,6 +238,73 @@ class ConexionesComputadora
             std::cout << "NO HAY CONEXIONES ENTRANTES" << std::endl;
         }  
     }
+
+    void salientes()
+    {
+        if (fuenteSaliente.size() > 0)
+        {
+            for (int i = 0; i < fuenteSaliente.size(); i++)
+            {
+                if (i < fuenteSaliente.size() - 1)
+                {
+                    std::cout << fuenteSaliente[i] << ", " << std::endl;
+                }
+                else
+                {
+                    std::cout << fuenteSaliente[i] << std::endl;
+                }   
+            }
+        }
+        else
+        {
+            std::cout << "NO HAY CONEXIONES SALIENTES" << std::endl;
+        }  
+    }
+
+    void ipsEntrantes()
+    {
+        if (ipEntrantes.size() > 0)
+        {
+            for (int i = 0; i < ipEntrantes.size(); i++)
+            {
+                if (i < ipEntrantes.size() - 1)
+                {
+                    std::cout << ipEntrantes[i] << ", " << std::endl;
+                }
+                else
+                {
+                    std::cout << ipEntrantes[i] << std::endl;
+                }
+            } 
+        }
+        else
+        {
+            std::cout << "NO HAY CONEXIONES SALIENTES" << std::endl;
+        } 
+    }
+
+    void ipsSalientes()
+    {
+        if (ipSalientes.size() > 0)
+        {
+            for (int i = 0; i < ipSalientes.size(); i++)
+            {
+                if (i < ipSalientes.size() - 1)
+                {
+                    std::cout << ipSalientes[i] << ", " << std::endl;
+                }
+                else
+                {
+                    std::cout << ipSalientes[i] << std::endl;
+                }   
+            }
+        }
+        else
+        {
+            std::cout << "NO HAY CONEXIONES SALIENTES" << std::endl;
+        }  
+    }
+
 };
 
 template <class K, class V>
