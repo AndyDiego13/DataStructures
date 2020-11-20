@@ -457,16 +457,13 @@ int main()
     cout << "La IP generada es: " << endl;
     cout << resultado << endl;
 
-    ConexionesComputadora cc("richard.reto.com", crearIp);
-    cc.conexionesComputadorasEntrantes();
-    cc.imprimirCE();
+    ConexionesComputadora ri("richard.reto.com", cc.crearIP);
+    ri.conexionesComputadorasEntrantes();
+    ri.imprimirCE();
     std::cout << "****************************" << std::endl;
-    cc.conexionesComputadorasSalientes();
-    cc.imprimirCS();
+    ri.conexionesComputadorasSalientes();
+    ri.imprimirCS();
     std::cout << "****************************" << std::endl;
-    cc.conexionesRepetidas();
-
-
-    
+    ri.conexionesRepetidas();
     return 0;
 }
