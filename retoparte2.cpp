@@ -48,7 +48,7 @@ class Record
             catch(const std::invalid_argument& ia)
             {
                 puertoFuente = 0;
-                std::cout << "ERROR" << pD << std::endl;
+                //std::cout << "ERROR" << pD << std::endl;
             } 
         }
 
@@ -68,7 +68,7 @@ class Record
             catch(const std::invalid_argument& ia)
             {
                 puertoDestino = 0;
-                std::cout << "ERROR" << pD << std::endl;
+                //std::cout << "ERROR" << pD << std::endl;
             } 
         }
 
@@ -388,7 +388,7 @@ class ConexionesComputadora
             }
             ce = ce->next;
         }
-        std::cout << "*** Son " << conexionesEntrantes << "conexiones entrantes. ***" << std::endl;
+        std::cout << "*** Son " << conexionesEntrantes << " conexiones entrantes. ***" << std::endl;
     }
 
     void imprimirCS()
@@ -406,7 +406,7 @@ class ConexionesComputadora
             }
             cs = cs->next;
         }
-        std::cout << "*** Son " << conexionesSalientes << "conexiones salientes. ***" << std::endl;
+        std::cout << "*** Son " << conexionesSalientes << " conexiones salientes. ***" << std::endl;
     }
 
     void conexionesRepetidas()
@@ -429,7 +429,7 @@ class ConexionesComputadora
             }
             else
             {
-                std::cout << "--- Son " << counter << "conexiones salientes que se repiten por lo menos 3 veces. ---" << std::endl;
+                std::cout << "--- Son " << counter << " conexiones salientes que se repiten por lo menos 3 veces. ---" << std::endl;
             } 
         }
         else
@@ -448,16 +448,15 @@ int main()
     std::cout << "datosleidos" << std::endl;
     d.imprimir();
 
-    ConexionesComputadora cc;
-    std::cout << "^^^ Ingresa un número entre 1 y 150 para generar una IP: ^^^" << std::endl;
-    cin >> cc.crearIP;
     string nIp = "172.18.243";  //ip interna
     string crearIp;
+    std::cout << "^^^ Ingresa un número entre 1 y 150 para generar una IP: ^^^" << std::endl;
+    cin >> crearIp;
     string resultado = nIp + "." + crearIp;
     cout << "La IP generada es: " << endl;
     cout << resultado << endl;
 
-    ConexionesComputadora ri("richard.reto.com", cc.crearIP);
+    ConexionesComputadora ri("brian.reto.com", "193");
     ri.conexionesComputadorasEntrantes();
     ri.imprimirCE();
     std::cout << "****************************" << std::endl;
