@@ -87,6 +87,98 @@ class Record
     }
 };
 
+class Datos
+{
+    public:
+    string path;
+    vector<Record> conexiones;
+
+    void leerDatos(string path)
+    {
+        ifstream fileIn;
+        fileIn.open(path); //path es el directorio
+
+        string line, partes;
+        vector<string> valores;
+        
+
+
+        while(fileIn.good())
+        {
+            getline(fileIn, line);
+            istringstream sIn(line); //separador de comas
+
+            while(getline(sIn, partes, ','))
+            {
+
+                valores.push_back(partes);
+            }
+            
+            if(valores[7].find('\r')!= valores[7].npos)
+            {
+                valores[7] = valores[7].substr(0, valores[7].size()-1);
+            }
+            //
+            Record r(valores[0], valores[1], valores[2], valores[3], valores[4], valores[5], valores[6], valores[7]);
+            conexiones.push_back(r);
+            valores.clear();
+        }
+    }
+
+    void imprimir()
+    {
+        std::cout << "Número de registros en archivo: " << conexiones.size() << std::endl;
+    }
+
+    int compararPorFecha(Record a, Record b)
+	{
+		if(a.fecha < b.fecha)
+		{
+			return -1;
+		}
+		else if (a.fecha == b.fecha)
+		{
+			return 0;
+		}
+		else
+		{
+			return 1;
+		}
+	}
+
+    int compararPorNombreFuente(Record a, Record b)
+	{
+		if(a.nombreFuente < b.nombreFuente)
+		{
+			return -1;
+		}
+		else if (a.nombreFuente == b.nombreFuente)
+		{
+			return 0;
+		}
+		else
+		{
+			return 1;
+		}
+	}
+
+    int compararPorNombreDestino(Record a, Record b)
+	{
+		if(a.nombreDestino < b.nombreDestino)
+		{
+			return -1;
+		}
+		else if (a.nombreDestino == b.nombreDestino)
+		{
+			return 0;
+		}
+		else
+		{
+			return 1;
+		}
+	}	
+};
+
 // usaremos la clase nodo de una linkedlist
 template<class T>
 class Nodo
@@ -197,8 +289,153 @@ class ConexionesComputadora
         fileIn.open(path); //path es el directorio
 
         string line, partes;
+        int count = 0;
         vector<string> valores;
 
+        while (fileIn.good())
+        {
+            getline(fileIn, line);
+            istringstream sIn(line);
+
+            while (getline(sIn, partes, ','))
+            {
+                valores[count] = partes;
+                count++;
+            }
+            if (valores[5] == ip)
+            {
+                if (conexiones_Entrantes == 0)
+                {
+                    Nodo<string> *nuevo = new Nodo<string>;
+                    nuevo->data = valores[2];
+                    nuevo->next = 0;
+                    conexiones_Entrantes = nuevo;
+                }
+                else
+                {
+                    Nodo<string> *nuevo = new Nodo<string>;
+                    nuevo->data = valores[2];
+                    nuevo->next = conexiones_Entrantes;
+                    conexiones_Entrantes = nuevo;
+                }
+                conexionesEntrantes++;
+            }
+            count = 0; 
+        }
+    }
+
+    void conexionesComputadorasSalientes()
+    {
+        string path;
+        vector<Record> conexiones;
+        fstream fileIn;
+        fileIn.open(path); //path es el directorio
+
+        string line, partes;
+        int count = 0;
+        vector<string> valores;
+
+        while (fileIn.good())
+        {
+            getline(fileIn, line);
+            istringstream sIn(line);
+
+            while (getline(sIn, partes, ','))
+            {
+                valores[count] = partes;
+                count++;
+            }
+            if (valores[2] == ip)
+            {
+                if (conexiones_Salientes == 0)
+                {
+                    Nodo<string> *nuevo = new Nodo<string>;
+                    nuevo->data = valores[5];
+                    nuevo->next = 0;
+                    conexiones_Salientes = nuevo;
+                }
+                else
+                {
+                    Nodo<string> *nuevo = new Nodo<string>;
+                    Nodo<string> *ca = conexiones_Salientes;
+                    nuevo->data = valores[5];
+                    nuevo->next = 0;
+                    while (ca->next)
+                    {
+                        ca = ca->next;
+                    }
+                    ca->next = nuevo;
+                    
+                }
+                conexionesSalientes++;
+            }
+            count = 0; 
+        }
+    }
+
+    void imprimirCE()
+    {
+        Nodo<string> *ce = conexiones_Entrantes;
+        while (ce)
+        {
+            if (ce->next)
+            {
+                std::cout << ce->data << ", " << std::endl;
+            }
+            else
+            {
+                std::cout << ce->data << "\n" << std::endl;
+            }
+            ce = ce->next;
+        }
+        std::cout << "*** Son " << conexionesEntrantes << "conexiones entrantes. ***" << std::endl;
+    }
+
+    void imprimirCS()
+    {
+        Nodo<string> *cs = conexiones_Salientes;
+        while (cs)
+        {
+            if (cs->next)
+            {
+                std::cout << cs->data << ", " << std::endl;
+            }
+            else
+            {
+                std::cout << cs->data << "\n" << std::endl;
+            }
+            cs = cs->next;
+        }
+        std::cout << "*** Son " << conexionesSalientes << "conexiones salientes. ***" << std::endl;
+    }
+
+    void conexionesRepetidas()
+    {
+        if (conexiones_Salientes != 0 && conexionesSalientes >= 3)
+        {
+            Nodo<string> *cs = conexiones_Salientes;
+            int counter = 0;
+            while (cs->next->next)
+            {
+                if (cs->data == cs->next->data && cs->next->data == cs->next->next->data)
+                {
+                    counter++;
+                }
+                cs = cs->next;    
+            }
+            if (counter == 0)
+            {
+                std::cout << "--- No son más de 3 conexiones salientes a una página web. ---" << std::endl;
+            }
+            else
+            {
+                std::cout << "--- Son " << counter << "conexiones salientes que se repiten por lo menos 3 veces. ---" << std::endl;
+            } 
+        }
+        else
+        {
+            std::cout << "+++ No hay más de 3 conexiones salientes desde esta computadora. +++" << std::endl;
+        }   
     }
 };
 
@@ -206,46 +443,22 @@ class ConexionesComputadora
 
 int main()
 {
-    //leerDatos("/iCloudDrive/Escritorio/RETO_PARTE_2/RETO2/nuevo9.csv");
-    unordered_map<string, ConexionesComputadora> cc;
+    Datos d;
+    d.leerDatos("/Users/andydiego13/Downloads/copianuevo9.csv");
+    std::cout << "datosleidos" << std::endl;
+    d.imprimir();
 
-    /*
-    for(Record r: conexiones)
-    {
-        if (r.ipFuente != "-")
-        {
-            if (cc.find(r.ipFuente)==cc.end())
-            {
-                ConexionesComputadora cc(r.ipFuente, r.nombreFuente);
-                cc[r.ipFuente] = CC;
-            }
-            cc[r.ipFuente].nuevaSaliente(r.puertoDestino, r.ipDestino, r.nombreDestino); 
-        } 
-    }
-    */
-   /*
-   for(Record r: conexiones)
-   {
-       if (r.ipFuente != "-")
-       {
-           if (cc.find(r.ipFuente) == cc.end())
-           {
-               //ConexionesComputadora a(r.ipFuente,r.nombreFuente);
-               //cc[r.ipFuente] = a;
-           } 
-       }
-   }*/
-    
-    vector<Record> r;
-    /*
+    ConexionesComputadora cc;
+    std::cout << "^^^ Ingresa un número entre 1 y 150 para generar una IP: ^^^" << std::endl;
+    cin >> cc.crearIP;
     string nIp = "172.18.243";  //ip interna
     string crearIp;
-    cout << "Inserta un número entre 1 y 150 para generar una IP: " << endl;
-    cin >> crearIp;
     string resultado = nIp + "." + crearIp;
     cout << "La IP generada es: " << endl;
     cout << resultado << endl;
-    */
+
+
+
     
     return 0;
 }
