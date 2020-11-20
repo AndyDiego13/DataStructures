@@ -200,58 +200,43 @@ class ConexionesComputadora
 {
     public:
 
-    string ip;
-    string nombre;
-    list <InfoConexiones> entrantes;
-    list <InfoConexiones> salientes;
-    //int i = 0;
-    //int j = 0;
+    vector<string> fuenteEntrantes;
+    vector<string> fuenteSaliente;
+    vector<string> ipEntrantes;
+    vector<string> ipSalientes;
 
-    //constructor sin parametros/vacio se utiliza cuando quieres un constructor generico sin importar los parametros
-    //
-    ConexionesComputadora()
+    void nuevaEntrante(string ip, string fuente)
     {
-        this -> ip = ip;
-        this -> nombre = nombre;  
-
+        fuenteEntrantes.push_back(fuente);
+        ipEntrantes.push_back(ip);
     }
 
-    //constructor con parametros estrictamente para la implementacion deben de estar todas las variables
-
-    ConexionesComputadora(string iP, string name, list<InfoConexiones> entradas, list<InfoConexiones> salidas)
+    void nuevaSaliente(string ip, string fuente)
     {
-        ip = iP;
-        nombre = name;
-        entrantes = entradas;
-        salientes = salidas;
+        fuenteSaliente.push_back(fuente);
+        ipSalientes.push_back(ip);
     }
 
-    void nuevaEntrante(int puerto, string ip, string nombre)
+    void entrantes()
     {
-        InfoConexiones ic(puerto, ip, nombre);
-        entrantes.push_back(ic);
-    }
-
-    void nuevaSaliente(int puerto, string ip, string nombre)
-    {
-        InfoConexiones ic(puerto, ip, nombre);
-        salientes.push_front(ic);
-    }
-
-    list<InfoConexiones> getCE()
-    {
-        return entrantes;
-    }
-
-    list<InfoConexiones> getCS()
-    {
-        return salientes;
-    }
-
-    void imprimirCc()
-    {
-       cout << "La IP del usuario es: " << ip << endl;
-       cout << "El nombre del usuario es: " << nombre << endl;
+        if (fuenteEntrantes.size() > 0)
+        {
+            for (int i = 0; i < fuenteEntrantes.size(); i++)
+            {
+                if (i < fuenteEntrantes.size() - 1)
+                {
+                    std::cout << fuenteEntrantes[i] << "," << std::endl;
+                }
+                else
+                {
+                    std::cout << fuenteEntrantes[i] << std::endl;
+                }   
+            }
+        }
+        else
+        {
+            std::cout << "NO HAY CONEXIONES ENTRANTES" << std::endl;
+        }  
     }
 };
 
