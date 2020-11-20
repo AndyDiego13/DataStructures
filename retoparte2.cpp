@@ -87,39 +87,16 @@ class Record
     }
 };
 
-/*
-vector<Record>conexiones;
-
-void leerDatos(string path)
+// usaremos la clase nodo de una linkedlist
+template<class T>
+class Nodo
 {
-    ifstream fileIn;
-    fileIn.open(path); //path es el directorio
+    public:
+    T data;
+    Nodo<T> *next;
+};
 
-    string line, partes;
-    vector<string> valores;
-    
-    while(fileIn.good())
-    {
-        getline(fileIn, line);
-        istringstream sIn(line); //separador de comas
-
-        while(getline(sIn, partes, ','))
-        {
-
-            valores.push_back(partes);
-        }
-        
-        if(valores[7].find('\r')!= valores[7].npos)
-        {
-			valores[7] = valores[7].substr(0, valores[7].size()-1);
-		}
-
-        Record r(valores[0], valores[1], valores[2], valores[3], valores[4], valores[5], valores[6], valores[7]);
-        conexiones.push_back(r);
-        valores.clear();
-    }
-}
-*/
+/* Decidimos no tener una clase InfoConexiones porque tenemos más conocimiento de manejar vectores en lugar de listas
 class InfoConexiones
 {
     public:
@@ -135,83 +112,94 @@ class InfoConexiones
         nombreRemoto = nR;
     }
 };
-
+*/
 class ConexionesComputadora
 {
     public:
 
     string ip;
     string nombre;
-    list <InfoConexiones> entrantes;
-    list <InfoConexiones> salientes;
-    //int i = 0;
-    //int j = 0;
+    int conexionesEntrantes; //indice de conexiones entrantes
+    int conexionesSalientes; //indice de conexiones salientes
+    Nodo<string> *conexiones_Entrantes;
+    Nodo<string> *conexiones_Salientes;
+
 
     //constructor sin parametros/vacio se utiliza cuando quieres un constructor generico sin importar los parametros
-    //
     ConexionesComputadora()
     {
-        this -> ip = ip;
-        this -> nombre = nombre;  
-
+        //para que en el constructor Record funcione correctamente porque antes nos imprimia el error
+        ip = "-"; 
+        nombre = " ";
+        //indeces antes les habiamos puesto i y j
+        conexionesEntrantes = 0;
+        conexionesSalientes = 0;
+        //para este constructor iniciaremos los nodos en 0 para despues utilizar un adecuado manejo de memoria
+        conexiones_Entrantes = 0;
+        conexiones_Salientes = 0;
     }
 
-    //constructor con parametros estrictamente para la implementacion deben de estar todas las variables
-
-    ConexionesComputadora(string iP, string name, list<InfoConexiones> entradas, list<InfoConexiones> salidas)
+    string crearIP;
+    string getCrearIP()
     {
-        ip = iP;
-        nombre = name;
-        entrantes = entradas;
-        salientes = salidas;
+        return crearIP;
     }
 
-    void nuevaEntrante(int puerto, string ip, string nombre)
+    //constructor con parametros estrictamente para la implementacion deben de estar todas las variables que definas
+    ConexionesComputadora(string nombre, string crearIP)
     {
-        InfoConexiones ic(puerto, ip, nombre);
-        entrantes.push_back(ic);
-        //i++;
+        //ip interna
+        ip = "172.18.243." + crearIP;
+        this ->nombre = nombre;
+        //aun no se necesitan
+        conexionesEntrantes = 0;
+        conexionesSalientes = 0;
+        conexiones_Entrantes = 0;
+        conexiones_Salientes = 0;
     }
 
-    void nuevaSaliente(int puerto, string ip, string nombre)
+    ConexionesComputadora(string crearIP)
     {
-        InfoConexiones ic(puerto, ip, nombre);
-        salientes.push_front(ic);
-        ///j++;
+        ip = "172.18.243." + crearIP;
+        //aqui no nos interesa el nombre
+        nombre = " ";
+        conexionesEntrantes = 0;
+        conexionesSalientes = 0;
+        conexiones_Entrantes = 0;
+        conexiones_Salientes = 0;
     }
 
-    list<InfoConexiones> getCE()
+    //destructor para el manejo de memoria
+    ~ConexionesComputadora()
     {
-        return entrantes;
+        Nodo<string> *des;
+        while (conexiones_Entrantes)
+        {
+            des = conexiones_Entrantes;
+            conexiones_Entrantes = conexiones_Entrantes->next;
+            delete des;
+        }
+        while (conexiones_Salientes)
+        {
+            des = conexiones_Salientes;
+            conexiones_Salientes = conexiones_Salientes->next;
+            delete des;
+        }
+
+        std::cout << "Depuración de memoria/conexiones" << std::endl;
     }
 
-    list<InfoConexiones> getCS()
+    void conexionesComputadorasEntrantes()
     {
-        return salientes;
+        string path;
+        vector<Record> conexiones;
+        fstream fileIn;
+        fileIn.open(path); //path es el directorio
+
+        string line, partes;
+        vector<string> valores;
+
     }
-
-    void imprimirCc()
-    {
-       cout << "La IP del usuario es: " << ip << endl;
-       cout << "El nombre del usuario es: " << nombre << endl;
-       //cout << "Conexiones entrantes: " << i << endl;
-       //cout << "Conexiones salientes: " << j << endl;
-    }
-
-    /*
-    void imprimirConexion()
-    {
-        operator std::string() const { return std::string(str, len); }
-
-
-        InfoConexiones * item = new InfoConexiones;
-
-        string ultimaConexion = entrantes.back();
-        cout << ultimaConexion << endl;
-
-        delete item;
-    }
-*/
 };
 
 
@@ -249,7 +237,7 @@ int main()
    }*/
     
     vector<Record> r;
-
+    /*
     string nIp = "172.18.243";  //ip interna
     string crearIp;
     cout << "Inserta un número entre 1 y 150 para generar una IP: " << endl;
@@ -257,13 +245,7 @@ int main()
     string resultado = nIp + "." + crearIp;
     cout << "La IP generada es: " << endl;
     cout << resultado << endl;
-
-    string name;
-    list<InfoConexiones> inicio;
-    list<InfoConexiones> final;
-
-    //ConexionesComputadora concomp;
-    //concomp.imprimirCc();
+    */
     
     return 0;
 }
