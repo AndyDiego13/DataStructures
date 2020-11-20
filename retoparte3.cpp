@@ -305,6 +305,19 @@ class ConexionesComputadora
         }  
     }
 
+    bool buscarFuenteEntrante(string nombreFuente)
+    {
+        for (int i = 0; i < fuenteEntrantes.size(); i++)
+        {
+            if (fuenteEntrantes[i] == nombreFuente)
+            {
+                std::cout << "Nombre fuente entrante: " << fuenteEntrantes[i] << std::endl;
+                std::cout << "Ip entrante: " << ipEntrantes[i] << std::endl;
+                return true;
+            }
+        }
+        return false;
+    }
 };
 
 template <class K, class V>
