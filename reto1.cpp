@@ -63,12 +63,11 @@ class Datos
 
                 valores.push_back(partes);
             }
-            
+            //como los datos son generados en windows y windows usa /r/n ponemos este if 
             if(valores[7].find('\r')!= valores[7].npos)
             {
                 valores[7] = valores[7].substr(0, valores[7].size()-1);
             }
-            //
             Record r(valores[0], valores[1], valores[4], valores[7]);
             conexiones.push_back(r);
             valores.clear();
@@ -348,6 +347,12 @@ int main()
     s.sort(conexiones, compararPorNombreFuente);
     std::cout << "datosordenados " << std::endl;
 
+    //Record r (" ", " ", "jeffrey.reto.com", " ");
+    //Record r (" ", " ", "betty.reto.com", " ");
+    //Record r (" ", " ", "katherine.reto.com"," ");
+    //Record r (" ", " ", "scott.reto.com", " ");
+    //Record r (" ", " ", "benjamin.reto.com", " ");
+    
     Record r (" ", " ", "brandon.reto.com", " ");
 
    int pos = busquedaBinaria(conexiones, r, compararPorNombreFuente);
@@ -356,7 +361,7 @@ int main()
        std::cout << "ENCONTRADO" << std::endl;
    }
    
-    
+    //esto fue lo que hicimos para busqueda binaria 2 pero no me gusto y preferi la busqueda binaria 1 
     //string a = "jeffrey.reto.com";
     //string a = "betty.reto.com";
     //string a = "katherine.reto.com";
