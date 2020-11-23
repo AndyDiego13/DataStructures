@@ -339,7 +339,8 @@ int main()
     
     Datos d;
     d.leerDatos("/Users/andydiego13/Downloads/copianuevo9.csv");
-    std::cout << "datosleidos" << std::endl;
+    //Pregunta 1 (¿Cuantos registros tiene tu archivo?)
+    std::cout << "Datos Leídos" << std::endl;
     d.imprimir();
 
     MergeSort<Record> s;
@@ -352,8 +353,12 @@ int main()
     //Record r (" ", " ", "katherine.reto.com"," ");
     //Record r (" ", " ", "scott.reto.com", " ");
     //Record r (" ", " ", "benjamin.reto.com", " ");
-    
+    //Record r (" ", " ", "samuel.reto.com", " ");
+    //Record r(" ", " ", "raymond.reto.com", " ");
     Record r (" ", " ", "brandon.reto.com", " ");
+
+    //Record r(" ", " ", "server.reto.com", " ");
+    //Record r(" ", " ", "protonmail.com", " ");
 
    int pos = busquedaBinaria(conexiones, r, compararPorNombreFuente);
    if (pos == -1)
@@ -376,15 +381,6 @@ int main()
 
     //Pregunta 6
     //string a = "protonmail.com";
-
-    /*int pos = busquedaBinaria(conexiones, r, compararPorNombreFuente);
-    if (pos != -1)
-    {
-        std::cout << "Encontrado" << std::endl;
-    }
-    */
-    
-
 
     return 0;
 }
