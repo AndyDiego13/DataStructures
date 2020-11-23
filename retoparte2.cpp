@@ -41,6 +41,7 @@ class Record
         {
             try
             {
+                //stoi interpretador de string para regresar un int
                 puertoFuente = stoi(pF);
             }
             catch(const std::invalid_argument& ia)
@@ -177,7 +178,7 @@ class Datos
 	}	
 };
 
-// usaremos la clase nodo de una linkedlist
+// usaremos la clase nodo de una linkedlist no estoy seguraaaa
 template<class T>
 class Nodo
 {
@@ -186,7 +187,7 @@ class Nodo
     Nodo<T> *next;
 };
 
-/* Decidimos no tener una clase InfoConexiones porque tenemos más conocimiento de manejar vectores en lugar de listas
+/* Decidí no tener una clase InfoConexiones porque tengo más conocimiento de manejar vectores en lugar de listas update: si quiero saber como hacerlo así
 class InfoConexiones
 {
     public:
@@ -247,7 +248,7 @@ class ConexionesComputadora
         conexiones_Entrantes = 0;
         conexiones_Salientes = 0;
     }
-
+    //creo que me emocione con los constructores y no me agradan del todo 
     ConexionesComputadora(string crearIP)
     {
         ip = "172.18.243." + crearIP;
@@ -261,6 +262,7 @@ class ConexionesComputadora
 
     void conexionesComputadorasEntrantes()
     {
+        //repito lo de mi clase datos pero no la uso y de todas formas esta mal la logica jejee no me gusta
         string path;
         vector<Record> conexiones;
         fstream fileIn;
@@ -304,6 +306,7 @@ class ConexionesComputadora
 
     void conexionesComputadorasSalientes()
     {
+        //repito lo de mi clase datos pero no la uso y de todas formas esta mal la logica jejee y no me gusta tho
         string path;
         vector<Record> conexiones;
         fstream fileIn;

@@ -366,7 +366,7 @@ int main()
        std::cout << "ENCONTRADO" << std::endl;
    }
    
-    //esto fue lo que hicimos para busqueda binaria 2 pero no me gusto y preferi la busqueda binaria 1 
+    //esto fue lo que hicimos para busqueda binaria 2 pero no me gusto(aka no funciono tho) y preferi la busqueda binaria 1 
     //string a = "jeffrey.reto.com";
     //string a = "betty.reto.com";
     //string a = "katherine.reto.com";
