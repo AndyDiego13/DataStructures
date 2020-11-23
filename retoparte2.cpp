@@ -435,7 +435,7 @@ int main()
     cout << resultado << endl;
 
     //no detecta el nombre tho pero no me convence :(
-    ConexionesComputadora ri("brian.reto.com", "193");
+    ConexionesComputadora ri("brian.reto.com", "172.18.24.193");
     ri.conexionesComputadorasEntrantes();
     ri.imprimirCE();
     std::cout << "****************************" << std::endl;
