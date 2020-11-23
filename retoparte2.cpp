@@ -27,8 +27,6 @@ class Record
     int puertoDestino;
     string nombreDestino;
 
-    Record()=default;
-
     Record(string f, string h, string ipF, string pF, string nF, string ipD, string pD, string nD)
     {
         fecha = f;
@@ -436,6 +434,7 @@ int main()
     cout << "La IP generada es: " << endl;
     cout << resultado << endl;
 
+    //no detecta el nombre tho pero no me convence :(
     ConexionesComputadora ri("brian.reto.com", "193");
     ri.conexionesComputadorasEntrantes();
     ri.imprimirCE();
