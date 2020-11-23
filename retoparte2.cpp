@@ -2,7 +2,7 @@
 Reto parte 2
 María José Mendoza Muñiz    A01652137
 Andrea Serrano Diego        A01028728
-Fernando Santoyo Moncada    A01028389
+
 */
 
 #include <iostream>
@@ -259,26 +259,6 @@ class ConexionesComputadora
         conexionesSalientes = 0;
         conexiones_Entrantes = 0;
         conexiones_Salientes = 0;
-    }
-
-    //destructor para el manejo de memoria
-    ~ConexionesComputadora()
-    {
-        Nodo<string> *des;
-        while (conexiones_Entrantes)
-        {
-            des = conexiones_Entrantes;
-            conexiones_Entrantes = conexiones_Entrantes->next;
-            delete des;
-        }
-        while (conexiones_Salientes)
-        {
-            des = conexiones_Salientes;
-            conexiones_Salientes = conexiones_Salientes->next;
-            delete des;
-        }
-
-        std::cout << "Depuración de memoria/conexiones" << std::endl;
     }
 
     void conexionesComputadorasEntrantes()
