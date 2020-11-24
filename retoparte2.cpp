@@ -68,7 +68,7 @@ class Record
             catch(const std::invalid_argument& ia)
             {
                 puertoDestino = 0;
-                //std::cout << "ERROR" << pD << std::endl;
+                std::cout << "ERROR" << pD << std::endl;
             } 
         }
 
@@ -188,7 +188,7 @@ class Nodo
     Nodo<T> *next;
 };
 
-/* Decidí no tener una clase InfoConexiones porque tengo más conocimiento de manejar vectores en lugar de listas update: si quiero saber como hacerlo así
+
 class InfoConexiones
 {
     public:
@@ -204,61 +204,30 @@ class InfoConexiones
         nombreRemoto = nR;
     }
 };
-*/
+
 class ConexionesComputadora
 {
     public:
 
     string ip;
     string nombre;
-    int conexionesEntrantes; //indice de conexiones entrantes
-    int conexionesSalientes; //indice de conexiones salientes
-    Nodo<string> *conexiones_Entrantes;
-    Nodo<string> *conexiones_Salientes;
 
 
     //constructor sin parametros/vacio se utiliza cuando quieres un constructor generico sin importar los parametros
     ConexionesComputadora()
     {
-        //para que en el constructor Record funcione correctamente porque antes nos imprimia el error
-        ip = "-"; 
-        nombre = " ";
-        //indeces antes les habiamos puesto i y j
-        conexionesEntrantes = 0;
-        conexionesSalientes = 0;
-        //para este constructor iniciaremos los nodos en 0 para despues utilizar un adecuado manejo de memoria
-        conexiones_Entrantes = 0;
-        conexiones_Salientes = 0;
-    }
 
-    string crearIP;
-    string getCrearIP()
-    {
-        return crearIP;
     }
 
     //constructor con parametros estrictamente para la implementacion deben de estar todas las variables que definas
-    ConexionesComputadora(string nombre, string crearIP)
+    ConexionesComputadora()
     {
-        //ip interna
-        ip = "172.18.243." + crearIP;
-        this ->nombre = nombre;
-        //aun no se necesitan
-        conexionesEntrantes = 0;
-        conexionesSalientes = 0;
-        conexiones_Entrantes = 0;
-        conexiones_Salientes = 0;
+
     }
     //creo que me emocione con los constructores y no me agradan del todo 
     ConexionesComputadora(string crearIP)
     {
-        ip = "172.18.243." + crearIP;
-        //aqui no nos interesa el nombre
-        nombre = " ";
-        conexionesEntrantes = 0;
-        conexionesSalientes = 0;
-        conexiones_Entrantes = 0;
-        conexiones_Salientes = 0;
+        //
     }
 
     void conexionesComputadorasEntrantes()
