@@ -263,27 +263,162 @@ class ConexionesComputadora
 
     void conexionesComputadorasEntrantes()
     {
-        //same de abajo
+        //repito lo de mi clase datos pero no la uso y de todas formas esta mal la logica jejee no me gusta
+        string path;
+        vector<Record> conexiones;
+        fstream fileIn;
+        fileIn.open(path); //path es el directorio
+
+        string line, partes;
+        int count = 0;
+        vector<string> valores;
+
+        while (fileIn.good())
+        {
+            getline(fileIn, line);
+            istringstream sIn(line);
+
+            while (getline(sIn, partes, ','))
+            {
+                valores[count] = partes;
+                count++;
+            }
+            if (valores[5] == ip)
+            {
+                if (conexiones_Entrantes == 0)
+                {
+                    Nodo<string> *nuevo = new Nodo<string>;
+                    nuevo->data = valores[2];
+                    nuevo->next = 0;
+                    conexiones_Entrantes = nuevo;
+                }
+                else
+                {
+                    Nodo<string> *nuevo = new Nodo<string>;
+                    nuevo->data = valores[2];
+                    nuevo->next = conexiones_Entrantes;
+                    conexiones_Entrantes = nuevo;
+                }
+                conexionesEntrantes++;
+            }
+            count = 0; 
+        }
     }
 
     void conexionesComputadorasSalientes()
     {
         //repito lo de mi clase datos pero no la uso y de todas formas esta mal la logica jejee y no me gusta tho
+        string path;
+        vector<Record> conexiones;
+        fstream fileIn;
+        fileIn.open(path); //path es el directorio
+
+        string line, partes;
+        int count = 0;
+        vector<string> valores;
+
+        while (fileIn.good())
+        {
+            getline(fileIn, line);
+            istringstream sIn(line);
+
+            while (getline(sIn, partes, ','))
+            {
+                valores[count] = partes;
+                count++;
+            }
+            if (valores[2] == ip)
+            {
+                if (conexiones_Salientes == 0)
+                {
+                    Nodo<string> *nuevo = new Nodo<string>;
+                    nuevo->data = valores[5];
+                    nuevo->next = 0;
+                    conexiones_Salientes = nuevo;
+                }
+                else
+                {
+                    Nodo<string> *nuevo = new Nodo<string>;
+                    Nodo<string> *ca = conexiones_Salientes;
+                    nuevo->data = valores[5];
+                    nuevo->next = 0;
+                    while (ca->next)
+                    {
+                        ca = ca->next;
+                    }
+                    ca->next = nuevo;
+                    
+                }
+                conexionesSalientes++;
+            }
+            count = 0; 
+        }
     }
 
     void imprimirCE()
     {
-        //wait
+        Nodo<string> *ce = conexiones_Entrantes;
+        while (ce)
+        {
+            if (ce->next)
+            {
+                std::cout << ce->data << ", " << std::endl;
+            }
+            else
+            {
+                std::cout << ce->data << "\n" << std::endl;
+            }
+            ce = ce->next;
+        }
+        std::cout << "*** Son " << conexionesEntrantes << " conexiones entrantes. ***" << std::endl;
     }
 
     void imprimirCS()
     {
-        //wait
+        Nodo<string> *cs = conexiones_Salientes;
+        while (cs)
+        {
+            if (cs->next)
+            {
+                std::cout << cs->data << ", " << std::endl;
+            }
+            else
+            {
+                std::cout << cs->data << "\n" << std::endl;
+            }
+            cs = cs->next;
+        }
+        std::cout << "*** Son " << conexionesSalientes << " conexiones salientes. ***" << std::endl;
     }
 
     void conexionesRepetidas()
     {
-        //wait 
+        //NOPEEEEE estoy repasando apuntadores y manejo de memoria
+        if (conexiones_Salientes != 0 && conexionesSalientes >= 3)
+        {
+            Nodo<string> *cs = conexiones_Salientes;
+            int counter = 0;
+            while (cs->next->next)
+            {
+                if (cs->data == cs->next->data && cs->next->data == cs->next->next->data)
+                {
+                    counter++;
+                }
+                cs = cs->next;    
+            }
+            if (counter == 0)
+            {
+                std::cout << "--- No son más de 3 conexiones salientes a una página web. ---" << std::endl;
+            }
+            else
+            {
+                std::cout << "--- Son " << counter << " conexiones salientes que se repiten por lo menos 3 veces. ---" << std::endl;
+            } 
+        }
+        else
+        {
+            std::cout << "+++ No hay más de 3 conexiones salientes desde esta computadora. +++" << std::endl;
+        }   
     }
 };
 
@@ -295,5 +430,23 @@ int main()
     d.leerDatos("/Users/andydiego13/Downloads/copianuevo9.csv");
     std::cout << "datosleidos" << std::endl;
     d.imprimir();
+
+    string nIp = "172.18.243";  //ip interna
+    string crearIp;
+    std::cout << "^^^ Ingresa un número entre 1 y 150 para generar una IP: ^^^" << std::endl;
+    cin >> crearIp;
+    string resultado = nIp + "." + crearIp;
+    cout << "La IP generada es: " << endl;
+    cout << resultado << endl;
+
+    //no detecta el nombre tho pero no me convence :(
+    ConexionesComputadora ri("brian.reto.com", "172.18.24.193");
+    ri.conexionesComputadorasEntrantes();
+    ri.imprimirCE();
+    std::cout << "****************************" << std::endl;
+    ri.conexionesComputadorasSalientes();
+    ri.imprimirCS();
+    std::cout << "****************************" << std::endl;
+    ri.conexionesRepetidas();
     return 0;
 }
