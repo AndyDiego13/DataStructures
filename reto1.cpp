@@ -377,7 +377,8 @@ int main()
     //string a = "brandon.reto.com";
 
     //Pregunta 5
-    //string a = "server.reto.com";
+    string a = "server.reto.com";
+    std::cout << a << std::endl;
 
     //Pregunta 6
     //string a = "protonmail.com";
