@@ -338,7 +338,7 @@ int main()
 {
     
     Datos d;
-    d.leerDatos("/Users/andydiego13/Downloads/copianuevo9.csv");
+    d.leerDatos("/Users/andydiego13/Downloads/equipo7.csv");
     //Pregunta 1 (¿Cuantos registros tiene tu archivo?)
     std::cout << "Datos Leídos" << std::endl;
     d.imprimir();
@@ -355,16 +355,14 @@ int main()
     //Record r (" ", " ", "benjamin.reto.com", " ");
     //Record r (" ", " ", "samuel.reto.com", " ");
     //Record r(" ", " ", "raymond.reto.com", " ");
-    Record r (" ", " ", "brandon.reto.com", " ");
+    //Record r (" ", " ", "brandon.reto.com", " ");
 
     //Record r(" ", " ", "server.reto.com", " ");
     //Record r(" ", " ", "protonmail.com", " ");
 
-   int pos = busquedaBinaria(conexiones, r, compararPorNombreFuente);
-   if (pos == -1)
-   {
-       std::cout << "ENCONTRADO" << std::endl;
-   }
+   //int pos = busquedaBinaria(conexiones, r, compararPorNombreFuente);
+   
+    //std::cout << "ENCONTRADO" << pos << std::endl;
    
     //esto fue lo que hicimos para busqueda binaria 2 pero no me gusto(aka no funciono tho) y preferi la busqueda binaria 1 
     //string a = "jeffrey.reto.com";
@@ -377,11 +375,30 @@ int main()
     //string a = "brandon.reto.com";
 
     //Pregunta 5
-    string a = "server.reto.com";
-    std::cout << a << std::endl;
+    //string a = "server.reto.com";
+    //s//td::cout << a << std::endl;
 
     //Pregunta 6
     //string a = "protonmail.com";
+
+    std::string a = "freemailserver.com";
+    
+    int pos = busquedaBinaria2(d.conexiones, a, compararPorNombreDestino2);
+    if(pos != -1)
+    {
+        std::cout << "Encontrado" << std::endl;
+    }
+    
+
+   //string a = "scott.reto.com";
+    /*
+    int pos2 = busquedaBinaria2(d.conexiones,a,compararPorNombreFuente2);
+    if (pos2 != -1)
+    {
+        std::cout << "Encontrado" << std::endl;
+    }
+    */
+    
 
     return 0;
 }
