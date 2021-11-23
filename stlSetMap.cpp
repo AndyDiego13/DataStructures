@@ -20,10 +20,10 @@ int main()
 
         for ( std::string persona:calificaciones[it->first])
         {
-            std::cout << persona << "," << std::endl;
+            std::cout << persona << std::endl;
         }
         std::cout << std::endl;
     }
-    
+
     return 0;
 }
