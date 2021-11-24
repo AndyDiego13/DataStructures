@@ -24,7 +24,13 @@ class Libro
                 {
 
                 }
-        }
+                ~Persona() {}
+
+                friend std::ostream &operator<<(std::ostream &os2, const Persona &persona)
+                {
+                   os2 << persona.key << "-" << persona.name << "-" << std::endl; 
+                }
+        };
         Libro()
         {
             Libro("sin definir", "sin definir", 0);
@@ -38,17 +44,14 @@ class Libro
     
         ~Libro() {}
     
+        
         friend std::ostream & operator<<(std::ostream &os, const Libro &libro)
         {
             os << libro.isbn << "-" << libro.titulo << "(" << libro.paginas << ")" << std::endl;
 
             return os;
         }
-
-        friend std::ostream & operator = (std::ostream &os2, const int &key, const std::string &name, const std::string &isbn, const std::vector<Libro> &libro)
-        {
-            os = 
-        }
+        
 };
 
 
