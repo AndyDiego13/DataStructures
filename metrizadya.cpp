@@ -77,7 +77,7 @@ int main()
     {
         for(int valor: fila)
         {
-            std::cout << valor << "," << std::endl;
+            std::cout << valor << ",";
         }
         std::cout << "    " << std::endl;
     }

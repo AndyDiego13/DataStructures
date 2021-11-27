@@ -70,7 +70,7 @@ class Graph
 {
     public:
     //por cada    valor un nodo
-    unordered_map<T, Nodo<T> *> nodos;
+    unordered_map<T, Nodo<T > *> nodos;
 
     //solo se preocupara por los valores 
 
@@ -147,5 +147,7 @@ int main()
 
    g.agregarArcoDirigidoConPeso("CDMX", "Tlaxcala", 50);
    g.agregarArcoConPeso("Cuernavaca", "Puebla", 765);
+
+   g.imprimirGrafo();
     return 0;
 }
